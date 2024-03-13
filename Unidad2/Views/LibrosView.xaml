@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Unidad2.Views.LibrosView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Unidad2.Views" xmlns:viewmodels="clr-namespace:Unidad2.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:LibrosViewModel}"
+             mc:Ignorable="d" Name="UC1"
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ContextMenu x:Key="menu1">
+            <MenuItem Header="Editar"/>
+            <MenuItem Header="Eliminar" Command="{Binding Source={x:Reference UC1}, Path=DataContext.VerEliminarCommand}"/>
+        </ContextMenu>
+    </UserControl.Resources>
+    
+    <DockPanel Margin="5">
+        <Button Command="{Binding VerAgregarCommand}" Content="+ Libro" DockPanel.Dock="Top" HorizontalAlignment="Right"></Button>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+            <ListBox ItemsSource="{Binding Libros}" SelectedItem="{Binding Libro}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:LibroView ContextMenu="{StaticResource menu1}"></local:LibroView>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>
